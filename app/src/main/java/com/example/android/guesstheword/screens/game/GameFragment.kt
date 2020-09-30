@@ -17,11 +17,13 @@
 package com.example.android.guesstheword.screens.game
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.android.guesstheword.R
 import com.example.android.guesstheword.databinding.GameFragmentBinding
@@ -36,6 +38,9 @@ class GameFragment : Fragment() {
 
     // The current score
     private var score = 0
+
+    // The GameViewModel
+    lateinit var viewModel: GameViewModel
 
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
@@ -53,8 +58,9 @@ class GameFragment : Fragment() {
                 false
         )
 
-        // TODO (04) Create and initialize a GameViewModel, using ViewModelProvider; Add a log
-        // statement
+        @Suppress("DEPRECATION")
+        Log.i("GameViewModel", "Called viewModelProviders.of")
+        viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
         resetList()
         nextWord()
